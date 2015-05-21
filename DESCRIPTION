@@ -1,0 +1,20 @@
+Package: APSIM
+Type: Package
+Title: General utility functions for the Agricultural Production Systems Simulator (APSIM)
+Version: 0.8.0
+Date: 2015-01-08
+Author: Justin Fainges
+Maintainer: Justin Fainges <Justin.Fainges@csiro.au>
+LazyData: true
+Description: Contains functions designed to faciliate the loading
+    and transformation of APSIM output files.
+    Also allows the creation of met files from both
+    Excel and text files and checks them for validity.
+License: GPL-3
+Imports:
+    data.table (>= 1.9.4),
+    lubridate (>= 1.3.3),
+    stringr (>= 0.6.2),
+    plyr (>= 1.8.1),
+    sirad,
+    methods
