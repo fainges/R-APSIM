@@ -43,7 +43,9 @@ relevant to your analysis.
 }
 \examples{
 \dontrun{loadApsim("c:/outputs") # load everything in the outputs directory}
-\dontrun{loadApsim("c:/outputs/simulation.out", loadAll=FALSE) # load a single file (note extension is required).}
-\dontrun{loadApsim("c:/outputs", returnFrame=FALSE, fill=TRUE) # load everything in the outputs directory, fill any missing columns and return a data table.}
+\dontrun{loadApsim("c:/outputs/simulation.out", loadAll=FALSE)
+# load a single file (note extension is required).}
+\dontrun{loadApsim("c:/outputs", returnFrame=FALSE, fill=TRUE)
+  # load everything in the outputs directory, fill any missing columns and return a data table.}
 }
 

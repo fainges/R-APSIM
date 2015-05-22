@@ -12,20 +12,20 @@ metFile <- methods::setClass("metFile",
 
 #' Convert raw data to the correct APSIM met format.
 #' 
-#' \code{PrepareMet} accepts a data frame containing met data and prepares it
+#' \code{PrepareMet} accepts a data frame containing met data and prepares it 
 #' for writing to an APSIM formatted source file.
 #' 
-#' It will generate year/day columns from an existing date column, check to
-#' ensure that dates are continuous and checks for the existence of required
+#' It will generate year/day columns from an existing date column, check to 
+#' ensure that dates are continuous and checks for the existence of required 
 #' column names (year, day, radn, mint, maxt and rain).
 #' 
-#' It will interpolate 365 day leap years (e.g. no extra day from GCMs) and
+#' It will interpolate 365 day leap years (e.g. no extra day from GCMs) and 
 #' returns a metFile object that can be used with other APSIM functions.
 #' @section Importing External Data: \code{prepareMet} accepts a standard R data
-#'   frame as an argument. As such, you can use any importation package that
-#'   returns data in or can be coerced to a data frame. Some examples: #'
+#'   frame as an argument. As such, you can use any importation package that 
+#'   returns data in or can be coerced to a data frame. Some examples: #' 
 #'   \itemize{ \item Microsoft Excel files - readxl \item NetCDF - RNetCDF \item
-#'   MySQL database - RMySQL \item Generic databases (including Microsoft SQL
+#'   MySQL database - RMySQL \item Generic databases (including Microsoft SQL 
 #'   Server) - RODBC }
 #' @param data A data frame containing the data to prepare.
 #' @param lat Latitude in decimal degrees.
@@ -36,7 +36,9 @@ metFile <- methods::setClass("metFile",
 #' @export
 #' @examples
 #' data(Kingsthorpe)
-#' prepareMet(kingsData, -27.48, 151.81, newNames=c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"))
+#' prepareMet(kingsData, -27.48, 151.81, newNames=
+#'   c("Date", "maxt", "mint", "rain", "evaporation",
+#'    "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"))
 prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitude required."), newNames=NULL, date.format="AU"){
     #rename columns
     if (!is.null(newNames) & (length(newNames) == length(data))) {

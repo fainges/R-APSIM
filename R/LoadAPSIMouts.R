@@ -25,16 +25,17 @@
 #'   levels) found as extra columns. Default is TRUE.
 #' @export
 #' @examples
-#' \dontrun{loadApsim("c:/outputs") # load everything in the outputs directory}
-#' \dontrun{loadApsim("c:/outputs/simulation.out", loadAll=FALSE) # load a single file (note extension is required).}
-#' \dontrun{loadApsim("c:/outputs", returnFrame=FALSE, fill=TRUE) # load everything in the outputs directory, fill any missing columns and return a data table.}
+#' \dontrun{genericLoadApsim("c:/outputs") # load everything in the outputs directory}
+#' \dontrun{genericLoadApsim("c:/outputs/simulation.out", loadAll=FALSE) 
+#' # load a single file (note extension is required).}
+#' \dontrun{genericLoadApsim("c:/outputs", returnFrame=FALSE, fill=TRUE) 
+#'   # load everything in the outputs directory, fill any missing columns and return a data table.}
 loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFrame = TRUE, n = 0, fill=FALSE, addConstants=TRUE)
 {    # this function is precompiled for a 10-12% performance increase
     if (loadAll){ 
         wd <- getwd()
         setwd(dir)
         files <- list.files(dir, paste(ext, "$", sep="")) # create a list of files
-        setwd(wd) #restore wd
     } else {
         files <- dir
     }
@@ -48,7 +49,6 @@ loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFr
         print(f)
         con <- file(f, open="r")
         count <- 0
-        data <- list(NULL)
         size <- 1
         constants <- NULL
         namesFound <- FALSE
@@ -78,21 +78,15 @@ loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFr
                         # this shouldn't (but can) happen. e.g. (DECIMAL DEGREES) when reporting lat/lon
                         if(length(units) != length(colNames)) stop(paste("Error reading", f, "number of columns does match number of headings."))
                         unitsFound <- TRUE          
-                    } else {    # everything else is data             
-                        if(count == size) {
-                            length(data) <- size <- size * 2
-                        }
+                    } else {    # everything else is data
                         count <- count + 1
-                        sp <- strsplit(oneLine, " ", fixed=TRUE)
-                        dataLine <- unlist(sp, use.names = FALSE)
-                        dataLine <- dataLine[dataLine != ""]
-                        data[[count]] <-  dataLine
+                        break
                     }
             }
+            count <- count + 1
         }
+        data <- read.table(con, skip=count, header=FALSE, col.names=colNames, na.strings = "?", stringsAsFactors=FALSE) # read the data
         close(con)
-        data <- data[!sapply(data, is.null)]
-        data <- data.frame(matrix(unlist(data), nrow=length(data), byrow=T), stringsAsFactors=FALSE)
         for(c in constants){
             data[[ncol(data) + 1]] <- c[2]
             colNames[length(colNames) + 1] <- c[1]
@@ -115,5 +109,6 @@ loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFr
         if(!any(is.na(as.numeric(allData[[i]]))))
             allData[[i]] <- as.numeric(allData[[i]])
     })
+    setwd(wd) #restore wd
     return(allData)
 })

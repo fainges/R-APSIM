@@ -43,6 +43,8 @@ returns a metFile object that can be used with other APSIM functions.
 }
 \examples{
 data(Kingsthorpe)
-prepareMet(kingsData, -27.48, 151.81, newNames=c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"))
+prepareMet(kingsData, -27.48, 151.81, newNames=
+  c("Date", "maxt", "mint", "rain", "evaporation",
+   "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"))
 }
 
