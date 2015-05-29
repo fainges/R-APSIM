@@ -1,7 +1,7 @@
-#' apsim: A general utility package for the Agricultural Production Systems 
+#' APSIM: A general utility package for the Agricultural Production Systems 
 #' Simulator (APSIM).
 #' 
-#' The apsim package provides a number of general purpose utilities designed to 
+#' The APSIM package provides a number of general purpose utilities designed to 
 #' simplify the importation of simulation output files and to assist in the 
 #' building of weather (met) files. Future development will include the ability 
 #' to manipulate .apsim files in order to create large factorial simulations.
@@ -18,6 +18,12 @@
 #'   
 #' @docType package
 #' @name apsim
+#' @importFrom data.table rbindlist
+#' @import lubridate
+#' @import methods
+#' @importFrom plyr ddply
+#' @import stringr
+#' @import sirad
 NULL
 
 #' Weather data from Kingsthorpe, Queensland, Australia.

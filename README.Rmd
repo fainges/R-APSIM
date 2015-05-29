@@ -1,0 +1,15 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+A package containing general purpose utility functions for loading and manipulating APSIM output and met files.
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```

@@ -4,10 +4,10 @@
 \name{apsim}
 \alias{apsim}
 \alias{apsim-package}
-\title{apsim: A general utility package for the Agricultural Production Systems
+\title{APSIM: A general utility package for the Agricultural Production Systems
 Simulator (APSIM).}
 \description{
-The apsim package provides a number of general purpose utilities designed to
+The APSIM package provides a number of general purpose utilities designed to
 simplify the importation of simulation output files and to assist in the
 building of weather (met) files. Future development will include the ability
 to manipulate .apsim files in order to create large factorial simulations.
