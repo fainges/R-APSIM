@@ -5,7 +5,7 @@
 \alias{apsim}
 \alias{apsim-package}
 \title{APSIM: A general utility package for the Agricultural Production Systems
-Simulator (APSIM).}
+Simulator}
 \description{
 The APSIM package provides a number of general purpose utilities designed to
 simplify the importation of simulation output files and to assist in the
