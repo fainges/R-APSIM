@@ -79,14 +79,13 @@ loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFr
                         if(length(units) != length(colNames)) stop(paste("Error reading", f, "number of columns does match number of headings."))
                         unitsFound <- TRUE          
                     } else {    # everything else is data
-                        count <- count + 1
                         break
                     }
             }
             count <- count + 1
         }
-        data <- read.table(con, skip=count, header=FALSE, col.names=colNames, na.strings = "?", stringsAsFactors=FALSE) # read the data
         close(con)
+        data <- read.table(f, skip=count, header=FALSE, col.names=colNames, na.strings = "?", stringsAsFactors=FALSE) # read the data
         for(c in constants){
             data[[ncol(data) + 1]] <- c[2]
             colNames[length(colNames) + 1] <- c[1]
