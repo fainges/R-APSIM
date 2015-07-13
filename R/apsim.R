@@ -24,6 +24,7 @@
 #' @importFrom plyr ddply
 #' @import stringr
 #' @import sirad
+#' @import utils
 NULL
 
 #' Weather data from Kingsthorpe, Queensland, Australia.
