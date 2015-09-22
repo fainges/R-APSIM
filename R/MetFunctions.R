@@ -62,7 +62,11 @@ prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitud
         converted <- FALSE
         for (col.idx in seq_len(ncol(data))) {
             x <- data[, col.idx]
-            if (lubridate::is.Date(x)) break
+            if (lubridate::is.Date(x)){
+                 converted = TRUE
+                 break
+            }
+            
             if (!is.character(x) | is.factor(x)) next
             if (all(is.na(x))) next
             
