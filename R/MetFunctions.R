@@ -1,6 +1,7 @@
 #' An S4 class used to store all information about a met file.
 #' 
 #' @export
+#' @slot const A character vector containing constants that wilkl be written to the file. Format is 'variable = value'.
 #' @slot lat A length one numeric vector.
 #' @slot lon A length one numeric vector.
 #' @slot tav A length one numeric vector.
@@ -8,7 +9,7 @@
 #' @slot units A character vector containing the names of the columns in \code{data}.
 #' @slot data A data frame containing per day weather data.
 metFile <- methods::setClass("metFile",
-                    slots = c(lat="numeric", lon="numeric", tav="numeric", amp="numeric", units="character", data="data.frame"))
+                    slots = c(const="character", lat="numeric", lon="numeric", tav="numeric", amp="numeric", units="character", data="data.frame"))
 
 #' Convert raw data to the correct APSIM met format.
 #' 
@@ -269,6 +270,7 @@ loadMet <- function(f)
     ampFound <- FALSE
     namesFound <- FALSE
     unitsFound <- FALSE
+    constants <- NULL
     met <- metFile()
     count <- 0
     data <- list(NULL)
@@ -296,6 +298,8 @@ loadMet <- function(f)
         } else if(grepl("amp", tolower(oneLine)) && !ampFound) {        # look for an amp
             met@amp <- as.numeric(stringr::str_extract(oneLine, "[-+]?[0-9]*\\.?[0-9]+"))
             ampFound <- TRUE
+        } else if(grepl("=", oneLine)) {     #add constants
+            constants[length(constants) + 1] <- oneLine
         } else { # we're up to the data now
             if (!namesFound) {
                 colNames <- unlist(strsplit(oneLine, " ", fixed=TRUE))
@@ -328,6 +332,7 @@ loadMet <- function(f)
             data[[i]] <- as.numeric(data[[i]])
     }
     met@data <- data
+    met@const <- constants
     return(met)
 }
 
@@ -352,6 +357,9 @@ writeMetFile <- function(fileName, met){
     
     con <- file(fileName, "w")
     writeLines("[weather.met.weather]", con)
+    for(i in 1:length(met@const)) {
+        writeLines(met@const[i], con)
+    }
     writeLines("", con)
     writeLines(paste("Latitude =", met@lat), con)
     writeLines("", con)

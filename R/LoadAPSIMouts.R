@@ -76,7 +76,7 @@ loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFr
                         units <- unlist(strsplit(stringr::str_trim(oneLine), " ", fixed=TRUE), use.names = FALSE)
                         units <- subset(units, units != "")
                         # this shouldn't (but can) happen. e.g. (DECIMAL DEGREES) when reporting lat/lon
-                        if(length(units) != length(colNames)) stop(paste("Error reading", f, "number of columns does match number of headings."))
+                        if(length(units) != length(colNames)) stop(paste("Error reading", f, "number of columns does not match number of headings."))
                         unitsFound <- TRUE          
                     } else {    # everything else is data
                         break
