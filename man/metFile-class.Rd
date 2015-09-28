@@ -11,6 +11,8 @@ An S4 class used to store all information about a met file.
 \section{Slots}{
 
 \describe{
+\item{\code{const}}{A character vector containing constants that wilkl be written to the file. Format is 'variable = value'.}
+
 \item{\code{lat}}{A length one numeric vector.}
 
 \item{\code{lon}}{A length one numeric vector.}
