@@ -26,7 +26,7 @@ From tav_amp.for in the APSIM source code:
 
 To summarise -
          If the year is divisible by 4 it is a leap year, unless it is
-     a centesimal year, in which case_z it must be divisible by 400.
+     a centesimal year, in which case it must be divisible by 400.
      i.e.  it is a leap year if either of the conditions hold:
             (1) the year is divisible by 4 but not by 100;
             (2) the year is divisible by 400.

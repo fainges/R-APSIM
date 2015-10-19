@@ -108,6 +108,6 @@ loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFr
         if(!any(is.na(as.numeric(allData[[i]]))))
             allData[[i]] <- as.numeric(allData[[i]])
     })
-    setwd(wd) #restore wd
+    if (loadAll) setwd(wd) #restore wd
     return(allData)
 })
