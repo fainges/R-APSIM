@@ -1,7 +1,7 @@
 Package: APSIM
 Type: Package
 Title: General Utility Functions for the 'Agricultural Production Systems Simulator'
-Version: 0.8.1
+Version: 0.8.3
 Date: 2015-07-13
 Author: Justin Fainges
 Maintainer: Justin Fainges <Justin.Fainges@csiro.au>

@@ -40,7 +40,7 @@ metFile <- methods::setClass("metFile",
 #' prepareMet(kingsData, -27.48, 151.81, newNames=
 #'   c("Date", "maxt", "mint", "rain", "evaporation",
 #'    "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"))
-prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitude required."), newNames=NULL, date.format="AU"){
+prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitude required."), units=stop("Vector for met units required."), newNames=NULL, date.format="AU"){
     #rename columns
     if (!is.null(newNames) & (length(newNames) == length(data))) {
         names(data) <- newNames
@@ -99,7 +99,9 @@ prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitud
     print(reqNames %in% names(data))
     if (!all(reqNames %in% names(data))) stop("One or more required column names are missing.")
     
-    met <- metFile(data=data, lat=lat, lon=lon)
+    if(ncol(data) != length(units)) stop("All data columns must have units. For unitless values use ().")
+    
+    met <- metFile(data=data, lat=lat, lon=lon, units= units)
     
     # add tav and amp
     met <- insertTavAmp(met)
@@ -207,7 +209,7 @@ checkMet <- function (met, lmint=-8, umint=32, lmaxt=10, umaxt=50){
 #' @export
 checkCont <- function(data){
     if((data$year[1] %% 4 == 0 && data$year[1] %% 100 == 0) || data$year[1] %% 400 == 0){
-        if(nrow(data == 365)){
+        if(nrow(data) == 365){
             # we're missing a leap day. Interpolate and add extra day
             dr <- data[59,]
             dr$day <- dr$day + 1
@@ -336,7 +338,7 @@ loadMet <- function(f)
             data[[i]] <- as.numeric(data[[i]])
     }
     met@data <- data
-    met@const <- constants
+    met@const <- ifelse(is.null(constants), "", constants)
     return(met)
 }
 
