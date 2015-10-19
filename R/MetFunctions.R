@@ -222,8 +222,8 @@ checkCont <- function(data){
         }        
     }   
     
-    ifelse(nrow(data) != data$day[nrow(data)] - data$day[1] + 1,
-           warning(paste("Number of days in", data$year[1], "does not match expected number,", data$day[nrow(data)] - data$day[1] + 1)), "")
+    if(nrow(data) != data$day[nrow(data)] - data$day[1] + 1)
+           warning(paste("Number of days in", data$year[1], "does not match expected number,", data$day[nrow(data)] - data$day[1] + 1))
 }
 
 #' Inserts Tav and Amp into a met object.
