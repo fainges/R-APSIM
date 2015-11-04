@@ -13,10 +13,10 @@ metFile <- methods::setClass("metFile",
 
 #' Convert raw data to the correct APSIM met format.
 #' 
-#' \code{PrepareMet} accepts a data frame containing met data and prepares it 
+#' \code{prepareMet} accepts a data frame containing met data and prepares it 
 #' for writing to an APSIM formatted source file.
 #' 
-#' It will generate year/day columns from an existing date column, check to 
+#' It will generate year/day columns from an existing date column (and add the required units), check to 
 #' ensure that dates are continuous and checks for the existence of required 
 #' column names (year, day, radn, mint, maxt and rain).
 #' 
@@ -28,19 +28,24 @@ metFile <- methods::setClass("metFile",
 #'   \itemize{ \item Microsoft Excel files - readxl \item NetCDF - RNetCDF \item
 #'   MySQL database - RMySQL \item Generic databases (including Microsoft SQL 
 #'   Server) - RODBC }
+#'   
+#' @section Specifiying units for data: Each data column requires a unit in order to be valid. Units need to be enclosed in parentheses.
+#'   For unitless values, use "()". Units can be specified by passing a 'units' vector to \code{prepareMet} (see example) or they may already be 
+#'   included in the data as would be seen in an APSIM output file. In this case, use \code{\link{loadMet}} instead.
 #' @param data A data frame containing the data to prepare.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
+#' @param units A character vector containing units for each column.
 #' @param newNames (optional) A vector of new column names.
 #' @param date.format (optional) A string containg the date format to use.
 #' @return A metFile S4 class containing the prepared met data.
 #' @export
 #' @examples
 #' data(Kingsthorpe)
-#' prepareMet(kingsData, -27.48, 151.81, newNames=
-#'   c("Date", "maxt", "mint", "rain", "evaporation",
-#'    "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"))
-prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitude required."), units=stop("Vector for met units required."), newNames=NULL, date.format="AU"){
+#' newNames <-c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am")
+#' units <- c("()", "(oC)", "(oC)", "(mm)", "(mm)", "(MJ/m^2/day)", "()", "()", "()", "()")
+#' prepareMet(kingsData, -27.48, 151.81, newNames = newNames, units = units)
+prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitude required."), units=stop("Vector for met units required. See function help if part of table."), newNames=NULL, date.format="AU"){
     #rename columns
     if (!is.null(newNames) & (length(newNames) == length(data))) {
         names(data) <- newNames
@@ -84,6 +89,7 @@ prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitud
             # found a date column; turn it into year and day
             data$year <- lubridate::year(data[, col.idx])
             data$day  <- lubridate::yday(data[, col.idx])
+            units <- c(units, "()", "()")
             colnames(data)[col.idx] <- "date"
         }
         else stop(paste("Could not find year/day or date columns or date column format does not match", date.format))
@@ -99,7 +105,7 @@ prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitud
     print(reqNames %in% names(data))
     if (!all(reqNames %in% names(data))) stop("One or more required column names are missing.")
     
-    if(ncol(data) != length(units)) stop("All data columns must have units. For unitless values use ().")
+    if(ncol(data) != length(units)) stop("The number of columns in the data did not match the number of units. All data columns must have units. For unitless values use ().")
     
     met <- metFile(data=data, lat=lat, lon=lon, units= units)
     

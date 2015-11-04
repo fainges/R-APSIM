@@ -10,9 +10,10 @@
 #' option as a different number of columns in output files usually means the 
 #' data came from a different set of reports or simulations which may not be 
 #' relevant to your analysis.
-#' @param dir The directory to search for .out files. This is not recursive.
+#' @param dir (optional) The directory to search for .out files. This is not recursive.
+#'   If omitted, the current working directory will be used.
 #' @param loadAll If TRUE will load all files in \code{dir}. If FALSE, will load
-#'   a single file specified by \code{dir}.
+#'   a single file specified by \code{dir}. Default is TRUE.
 #' @param ext The extension to use for output files. Default is \code{.out}.
 #' @param returnFrame Return the data as a data frame or data table. Default is 
 #'   TRUE, FALSE returns a data table.
@@ -30,11 +31,16 @@
 #' # load a single file (note extension is required).}
 #' \dontrun{genericLoadApsim("c:/outputs", returnFrame=FALSE, fill=TRUE) 
 #'   # load everything in the outputs directory, fill any missing columns and return a data table.}
-loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFrame = TRUE, n = 0, fill=FALSE, addConstants=TRUE)
+loadApsim <- compiler::cmpfun(function(dir = NULL, loadAll=TRUE, ext = ".out", returnFrame = TRUE, n = 0, fill=FALSE, addConstants=TRUE)
 {    # this function is precompiled for a 10-12% performance increase
     if (loadAll){ 
         wd <- getwd()
-        setwd(dir)
+        if(!is.null(dir)){
+            setwd(dir)
+        }
+        else {
+            dir <- getwd()
+        }
         files <- list.files(dir, paste(ext, "$", sep="")) # create a list of files
     } else {
         files <- dir
@@ -65,7 +71,7 @@ loadApsim <- compiler::cmpfun(function(dir, loadAll=TRUE, ext = ".out", returnFr
                 }
             }else if(grepl("=", oneLine)){ # line contains a constant
                     if(addConstants){
-                        constants[length(constants) + 1] <- strsplit(oneLine, "=", fixed="TRUE")
+                        constants[length(constants) + 1] <- strsplit(oneLine, " = ", fixed="TRUE")
                     }
                 } else {
                     if (!namesFound) { # this line is the column names

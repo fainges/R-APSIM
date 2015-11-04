@@ -5,7 +5,9 @@
 \title{Convert raw data to the correct APSIM met format.}
 \usage{
 prepareMet(data, lat = stop("Latitude required."),
-  lon = stop("Longitude required."), newNames = NULL, date.format = "AU")
+  lon = stop("Longitude required."),
+  units = stop("Vector for met units required."), newNames = NULL,
+  date.format = "AU")
 }
 \arguments{
 \item{data}{A data frame containing the data to prepare.}
@@ -45,6 +47,6 @@ returns a metFile object that can be used with other APSIM functions.
 data(Kingsthorpe)
 prepareMet(kingsData, -27.48, 151.81, newNames=
   c("Date", "maxt", "mint", "rain", "evaporation",
-   "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"))
+   "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"), units=c("()", "(oC)", "(oC)", "(mm)", "(mm)", "(MJ/m^2/day)", "()", "()", "()", "()"))
 }
 

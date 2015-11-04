@@ -3,6 +3,13 @@ A package containing general purpose utility functions for loading and manipulat
 Release Notes
 =============
 
+### 0.8.3
+
+-   Multi-year met data that ends with an incomplete year is now processed correctly.
+-   loadApsim now uses the current working directory if no directory is given.
+-   Fixed bug where constants were including a leading space.
+-   A vector of units is now required for prepareMet.
+
 ### 0.8.2
 
 -   loadMet will now read existing constants.
