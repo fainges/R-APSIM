@@ -32,6 +32,10 @@ Errors checked include:
   \item Radiation that is too high or low.
   }
 
+Note that issues found may not stop APSIM from running
+  but might indicate an issue with the weather data.
+  Warnings may not be applicable for very hot or cold climates.
+
 Expects input in metFile object. Use prepareMet or loadMet first.
 }
 \examples{

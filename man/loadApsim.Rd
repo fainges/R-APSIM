@@ -4,14 +4,15 @@
 \alias{loadApsim}
 \title{Read APSIM .out files.}
 \usage{
-loadApsim(dir, loadAll = TRUE, ext = ".out", returnFrame = TRUE, n = 0,
-  fill = FALSE, addConstants = TRUE)
+loadApsim(dir = NULL, loadAll = TRUE, ext = ".out", returnFrame = TRUE,
+  n = 0, fill = FALSE, addConstants = TRUE)
 }
 \arguments{
-\item{dir}{The directory to search for .out files. This is not recursive.}
+\item{dir}{(optional) The directory to search for .out files. This is not recursive.
+If omitted, the current working directory will be used.}
 
 \item{loadAll}{If TRUE will load all files in \code{dir}. If FALSE, will load
-a single file specified by \code{dir}.}
+a single file specified by \code{dir}. Default is TRUE.}
 
 \item{ext}{The extension to use for output files. Default is \code{.out}.}
 

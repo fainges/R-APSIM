@@ -42,7 +42,7 @@ metFile <- methods::setClass("metFile",
 #' @export
 #' @examples
 #' data(Kingsthorpe)
-#' newNames <-c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am")
+#' newNames <-c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Wind", "RH", "SVP")
 #' units <- c("()", "(oC)", "(oC)", "(mm)", "(mm)", "(MJ/m^2/day)", "()", "()", "()", "()")
 #' prepareMet(kingsData, -27.48, 151.81, newNames = newNames, units = units)
 prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitude required."), units=stop("Vector for met units required. See function help if part of table."), newNames=NULL, date.format="AU"){
@@ -129,6 +129,10 @@ prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitud
 #'   \item Evaporation that is too high or low.
 #'   \item Radiation that is too high or low.
 #'   }
+#'   
+#'   Note that issues found may not stop APSIM from running
+#'   but might indicate an issue with the weather data.
+#'   Warnings may not be applicable for very hot or cold climates.
 #' 
 #' Expects input in metFile object. Use prepareMet or loadMet first.
 #'   
@@ -155,9 +159,15 @@ checkMet <- function (met, lmint=-8, umint=32, lmaxt=10, umaxt=50){
     rcal <- sirad::extrat(met@data$day, sirad::radians(met@lat))
     
     # extract evaporation if it exists
-    ifelse("evap" %in% names(met@data), evapCol <- met@data[,c("evap", "year", "day")],
-           ifelse("evaporation" %in% names(met@data), evapCol <- met@data[,c("evaporation", "year","day")], evapCol <- NULL))
+    if("evap" %in% names(met@data)){
+        evapCol <- met@data[,c("evap", "year", "day")]
+    } else if("evaporation" %in% names(met@data)) {
+        evapCol <- met@data[,c("evaporation", "year","day")]
+        } else {
+            evapCol <- NULL
+        }
     
+    # do some more checks. Not the fastest given the loop, but this isn't run often.
     for(i in 1:nrow(met@data)) {
         # Check for maxt discontinuity.
         if(i > 3 && abs(met@data$maxtP1[i] - met@data$maxt[i] + met@data$maxtP1[i] - met@data$maxtP2[i]) > (ifelse(abs(met@lat) > 18, 19, 9)))
@@ -169,8 +179,9 @@ checkMet <- function (met, lmint=-8, umint=32, lmaxt=10, umaxt=50){
         
         # Evaporation (if available) must be between -0.5 and 20 mm
         # first check for an evaporation column
-        if(class(evapCol) != "NULL" & (evapCol[i,1] > 20 | evapCol[i,1] < -0.5))
-            warning(paste("Evaporation out of bounds on", evapCol$year[i], evapCol$day[i]))
+        if(class(evapCol) != "NULL")
+            if (evapCol[i,1] > 20 | evapCol[i,1] < -0.5)
+                warning(paste("Evaporation out of bounds on", evapCol$year[i], evapCol$day[i]))
         
         # maxt must be between 10 and 50 degrees Celcius
         if(met@data$maxt[i] < 10 | met@data$maxt[i] > 50)

@@ -6,8 +6,8 @@
 \usage{
 prepareMet(data, lat = stop("Latitude required."),
   lon = stop("Longitude required."),
-  units = stop("Vector for met units required."), newNames = NULL,
-  date.format = "AU")
+  units = stop("Vector for met units required. See function help if part of table."),
+  newNames = NULL, date.format = "AU")
 }
 \arguments{
 \item{data}{A data frame containing the data to prepare.}
@@ -15,6 +15,8 @@ prepareMet(data, lat = stop("Latitude required."),
 \item{lat}{Latitude in decimal degrees.}
 
 \item{lon}{Longitude in decimal degrees.}
+
+\item{units}{A character vector containing units for each column.}
 
 \item{newNames}{(optional) A vector of new column names.}
 
@@ -24,11 +26,11 @@ prepareMet(data, lat = stop("Latitude required."),
 A metFile S4 class containing the prepared met data.
 }
 \description{
-\code{PrepareMet} accepts a data frame containing met data and prepares it
+\code{prepareMet} accepts a data frame containing met data and prepares it
 for writing to an APSIM formatted source file.
 }
 \details{
-It will generate year/day columns from an existing date column, check to
+It will generate year/day columns from an existing date column (and add the required units), check to
 ensure that dates are continuous and checks for the existence of required
 column names (year, day, radn, mint, maxt and rain).
 
@@ -43,10 +45,16 @@ returns a metFile object that can be used with other APSIM functions.
   MySQL database - RMySQL \item Generic databases (including Microsoft SQL
   Server) - RODBC }
 }
+
+\section{Specifiying units for data}{
+ Each data column requires a unit in order to be valid. Units need to be enclosed in parentheses.
+  For unitless values, use "()". Units can be specified by passing a 'units' vector to \code{prepareMet} (see example) or they may already be
+  included in the data as would be seen in an APSIM output file. In this case, use \code{\link{loadMet}} instead.
+}
 \examples{
 data(Kingsthorpe)
-prepareMet(kingsData, -27.48, 151.81, newNames=
-  c("Date", "maxt", "mint", "rain", "evaporation",
-   "radn", "vp", "Windrun.km", "RH.at.9am", "SVP.at.9am"), units=c("()", "(oC)", "(oC)", "(mm)", "(mm)", "(MJ/m^2/day)", "()", "()", "()", "()"))
+newNames <-c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Wind", "RH", "SVP")
+units <- c("()", "(oC)", "(oC)", "(mm)", "(mm)", "(MJ/m^2/day)", "()", "()", "()", "()")
+prepareMet(kingsData, -27.48, 151.81, newNames = newNames, units = units)
 }
 
