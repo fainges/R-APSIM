@@ -8,6 +8,11 @@ A package containing general purpose utility functions for loading and manipulat
 
 # Release Notes
 
+### 0.8.4
+* Asterix character now recognised as missing data.
+* loadApsim now works with paths relative to the current working directory.
+* Added function 'getToken' that can be used to get a token from a delimited string (vectorised strsplit).
+
 ### 0.8.3
 * Multi-year met data that ends with an incomplete year is now processed correctly.
 * loadApsim now uses the current working directory if no directory is given.

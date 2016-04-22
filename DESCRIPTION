@@ -1,14 +1,15 @@
 Package: APSIM
 Type: Package
-Title: General Utility Functions for the 'Agricultural Production Systems Simulator'
-Version: 0.8.3
-Date: 2015-11-07
+Title: General Utility Functions for the 'Agricultural Production Systems
+    Simulator'
+Version: 0.8.4
+Date: 2015-11-09
 Author: Justin Fainges
 Maintainer: Justin Fainges <Justin.Fainges@csiro.au>
 LazyData: true
 Description: Contains functions designed to facilitate the loading
     and transformation of 'Agricultural Production Systems Simulator'
-    output files <https://www.apsim.info>. Input meteorological data 
+    output files <https://www.apsim.info>. Input meteorological data
     (also known as "weather" or "met") files can also be generated
     from user supplied data.
 License: GPL-3
@@ -21,3 +22,4 @@ Imports:
     methods,
     utils
 URL: https://www.apsim.info
+RoxygenNote: 5.0.1

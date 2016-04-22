@@ -3,6 +3,10 @@ A package containing general purpose utility functions for loading and manipulat
 Release Notes
 =============
 
+### 0.9.0
+-   NEW: Added command to load APSIM Next Generation data files (GetApsimNGTable)
+-   Optimised loadMet function; now loads much faster.
+
 ### 0.8.3
 
 -   Multi-year met data that ends with an incomplete year is now processed correctly.

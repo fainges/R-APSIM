@@ -266,7 +266,7 @@ insertTavAmp <- function(met){
     data$month <- lubridate::month(as.Date(paste(data$year, data$day,sep="-"), format="%Y-%j"))
     data$meanDayT <- (data$maxt + data$mint) / 2
     mmt <- plyr::ddply(data, "month", function(df) mean(df$meanDayT))
-    if (nrow(mmt) != 12) stop("At least 12 months of data is required to generate tav and amp.")
+    if (nrow(mmt) != 12) print("WARNING: At least 12 months of data is required to generate tav and amp. Values may be inaccurate.")
     met@tav <- max(mmt$V1) - min(mmt$V1)
     met@amp <- mean(mmt$V1)
     return(met)
@@ -293,13 +293,16 @@ loadMet <- function(f)
     ampFound <- FALSE
     namesFound <- FALSE
     unitsFound <- FALSE
+    dataFound <- FALSE
     constants <- NULL
     met <- metFile()
     count <- 0
     data <- list(NULL)
     size <- 1    
     
-    while (length(oneLine <- readLines(con, n=1, warn=FALSE)) > 0) {
+    while (!dataFound) {
+        oneLine <- readLines(con, n=1, warn=FALSE)
+        count <- count + 1
         #clear out any extra white space
         oneLine <- stringr::str_trim(oneLine)
         
@@ -335,19 +338,12 @@ loadMet <- function(f)
                 if(length(units) != length(colNames)) stop(paste("Error reading", f, "number of columns does match number of headings."))
                 unitsFound <- TRUE
             } else {                
-                if(count == size) {
-                    length(data) <- size <- size * 2
-                }
-                count <- count + 1
-                dataLine <- unlist(strsplit(oneLine, "\\s"))
-                dataLine <- dataLine[dataLine != ""]
-                data[[count]] <-  dataLine
+                dataFound <- TRUE
             }
         }
     }
     close(con)
-    data <- data[!sapply(data, is.null)]
-    data <- data.frame(matrix(unlist(data), nrow=length(data), byrow=T), stringsAsFactors=FALSE)
+    data <- read.table(f, skip=count - 1, header=FALSE, col.names=colNames, na.strings = c("?", "*"), stringsAsFactors=FALSE) # read the data
     names(data) <- colNames
     #convert character columns to numeric where possible
     for (i in 1:ncol(data)){
