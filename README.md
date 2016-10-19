@@ -3,9 +3,16 @@ A package containing general purpose utility functions for loading and manipulat
 Release Notes
 =============
 
+### 0.9.1
+
+-   loadMet now allows met files to be streamed. Just pass it the complete url.
+-   Updated loadMet documentation to point to metFile object description.
+
 ### 0.9.0
+
 -   NEW: Added command to load APSIM Next Generation data files (GetApsimNGTable)
 -   Optimised loadMet function; now loads much faster.
+-   loadMet function now correctly reads constants in met files.
 
 ### 0.8.3
 

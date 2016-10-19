@@ -18,6 +18,6 @@ Reads APSIM NG .db files.
 This function will read a single table from a given APSIM NG .db file.
 }
 \examples{
-\dontrun{GetApsimNGTable("c:/outputs/Wheat.db", "Results") # load the 'Results' table from the Wheat output file.}
+\dontrun{GetApsimNGTable("c:/outputs/Wheat.db", "Results")}
 }
 

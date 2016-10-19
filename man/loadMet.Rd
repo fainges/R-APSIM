@@ -19,6 +19,7 @@ for further analysis.
 }
 \details{
 For reading in other formats see the Importing External Data section in \code{\link{prepareMet}}.
+See \code{\link{metFile}} for more information on the \code{met} object.
 }
 \examples{
 \dontrun{loadMet("Weather.met")}

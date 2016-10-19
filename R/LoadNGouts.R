@@ -1,4 +1,3 @@
-library(RSQLite)
 #' Read APSIM Next Generation output files.
 #' 
 #' Reads APSIM NG .db files.
@@ -9,7 +8,7 @@ library(RSQLite)
 #' @param table The name of the table to read.
 #' @export
 #' @examples
-#' \dontrun{GetApsimNGTable("c:/outputs/Wheat.db", "Results") # load the 'Results' table from the Wheat output file.}
+#' \dontrun{GetApsimNGTable("c:/outputs/Wheat.db", "Results")}
 GetApsimNGTable <- function(dbLoc, table) 
 {
     connection <- dbConnect(SQLite(), dbname = dbLoc, flags = SQLITE_RW)
@@ -17,7 +16,3 @@ GetApsimNGTable <- function(dbLoc, table)
     dbDisconnect(connection)
     return(table)
 }
-
-
-
-

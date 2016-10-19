@@ -279,6 +279,7 @@ insertTavAmp <- function(met){
 #' for further analysis.
 #' 
 #' For reading in other formats see the Importing External Data section in \code{\link{prepareMet}}.
+#' See \code{\link{metFile}} for more information on the \code{met} object.
 #' @param f The full path to the file to read.
 #' @return A metFile object containing the read met file.
 #' @export
@@ -286,7 +287,13 @@ insertTavAmp <- function(met){
 #' \dontrun{loadMet("Weather.met")}
 loadMet <- function(f)
 {
-    con <- file(f, open="r")
+    if(file.exists(f)) {
+        con <- file(f, open="r")
+    } else {
+        con <- url(f)
+        open(con) 
+    }
+    
     latFound <- FALSE
     lonFound <- FALSE
     tavFound <- FALSE
@@ -302,7 +309,7 @@ loadMet <- function(f)
     
     while (!dataFound) {
         oneLine <- readLines(con, n=1, warn=FALSE)
-        count <- count + 1
+        count = count + 1
         #clear out any extra white space
         oneLine <- stringr::str_trim(oneLine)
         
@@ -350,8 +357,14 @@ loadMet <- function(f)
         if(!any(is.na(as.numeric(data[[i]]))))
             data[[i]] <- as.numeric(data[[i]])
     }
+    
     met@data <- data
-    met@const <- ifelse(is.null(constants), "", constants)
+    if(is.null(constants)){
+        met@const <- ""
+    } else {
+        met@const <- constants
+    }
+    
     return(met)
 }
 

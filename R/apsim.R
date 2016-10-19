@@ -19,12 +19,14 @@
 #' @docType package
 #' @name apsim
 #' @importFrom data.table rbindlist
+#' @importFrom data.table setnames
 #' @import lubridate
 #' @import methods
 #' @importFrom plyr ddply
 #' @import stringr
 #' @import sirad
 #' @import utils
+#' @import RSQLite
 NULL
 
 #' Weather data from Kingsthorpe, Queensland, Australia.
