@@ -90,6 +90,7 @@ prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitud
             data$year <- lubridate::year(data[, col.idx])
             data$day  <- lubridate::yday(data[, col.idx])
             units <- c(units, "()", "()")
+            data[, col.idx] <- paste(day(data[, col.idx]), month(data[, col.idx]), year(data[, col.idx]), sep="/")
             colnames(data)[col.idx] <- "date"
         }
         else stop(paste("Could not find year/day or date columns or date column format does not match", date.format))
