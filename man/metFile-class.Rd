@@ -2,8 +2,8 @@
 % Please edit documentation in R/MetFunctions.R
 \docType{class}
 \name{metFile-class}
-\alias{metFile}
 \alias{metFile-class}
+\alias{metFile}
 \title{An S4 class used to store all information about a met file.}
 \description{
 An S4 class used to store all information about a met file.

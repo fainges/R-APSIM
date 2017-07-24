@@ -34,7 +34,9 @@ NULL
 #' A dataset containing a year of weather data from Kingsthorpe.
 #' 
 #' @format A data frame containing 365 rows and 10 columns.
-"kingsData"
+#' @source internal
+#' @name kingsData
+NULL
 
 #' A complete metFile example using data from Dalby, Queensland, Australia.
 #' 
@@ -42,4 +44,6 @@ NULL
 #' amp data and units for the weather data
 #' 
 #' @format See \code{\link{metFile}} for more information on the metFile class.
-"met"
+#' @source internal
+#' @name met
+NULL

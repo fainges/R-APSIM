@@ -22,4 +22,3 @@ in \code{\link{prepareMet}}, it is not strictly required by APSIM and thus is
 optional here. However, it is best practise to include it so it will remain
 mandatory when building a met file via \code{\link{prepareMet}}.
 }
-

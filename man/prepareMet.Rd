@@ -51,10 +51,10 @@ returns a metFile object that can be used with other APSIM functions.
   For unitless values, use "()". Units can be specified by passing a 'units' vector to \code{prepareMet} (see example) or they may already be 
   included in the data as would be seen in an APSIM output file. In this case, use \code{\link{loadMet}} instead.
 }
+
 \examples{
 data(Kingsthorpe)
 newNames <-c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Wind", "RH", "SVP")
 units <- c("()", "(oC)", "(oC)", "(mm)", "(mm)", "(MJ/m^2/day)", "()", "()", "()", "()")
 prepareMet(kingsData, -27.48, 151.81, newNames = newNames, units = units)
 }
-

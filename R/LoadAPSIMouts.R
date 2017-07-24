@@ -26,6 +26,8 @@
 #'   error if the columns don't match across all files.
 #' @param addConstants Add any constants (such as ApsimVersion, Title or factor 
 #'   levels) found as extra columns. Default is TRUE.
+#' @param skipEmpty Silently skip empty output files. If false, empty files
+#'   will cause an error. Default is FALSE.
 #' @export
 #' @examples
 #' \dontrun{loadApsim("c:/outputs") # load everything in the outputs directory}
@@ -33,7 +35,7 @@
 #' # load a single file (note extension is required).}
 #' \dontrun{loadApsim("c:/outputs", returnFrame=FALSE, fill=TRUE) 
 #'   # load everything in the outputs directory, fill any missing columns and return a data table.}
-loadApsim <- compiler::cmpfun(function(dir = NULL, loadAll=TRUE, filter = "\\.out", returnFrame = TRUE, n = 0, fill=FALSE, addConstants=TRUE)
+loadApsim <- compiler::cmpfun(function(dir = NULL, loadAll=TRUE, filter = "\\.out", returnFrame = TRUE, n = 0, fill=FALSE, addConstants=TRUE, skipEmpty=FALSE)
 {    # this function is precompiled for a 10-12% performance increase
     if (loadAll){ 
         wd <- getwd()
@@ -55,6 +57,8 @@ loadApsim <- compiler::cmpfun(function(dir = NULL, loadAll=TRUE, filter = "\\.ou
     
     for(f in files) {
         print(f)
+        if(skipEmpty && file.info(f)$size == 0)
+            next
         con <- file(f, open="r")
         count <- 0
         size <- 1

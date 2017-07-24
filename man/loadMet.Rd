@@ -24,4 +24,3 @@ See \code{\link{metFile}} for more information on the \code{met} object.
 \examples{
 \dontrun{loadMet("Weather.met")}
 }
-

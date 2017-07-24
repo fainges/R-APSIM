@@ -31,4 +31,3 @@ To summarise -
             (1) the year is divisible by 4 but not by 100;
             (2) the year is divisible by 400.
 }
-

@@ -42,4 +42,3 @@ Expects input in metFile object. Use prepareMet or loadMet first.
 data(met)
 checkMet(met)
 }
-

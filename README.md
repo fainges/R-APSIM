@@ -3,6 +3,11 @@ A package containing general purpose utility functions for loading and manipulat
 Release Notes
 =============
 
+### 0.9.2
+
+-   loadApsim has new option: skipEmpty, which will skip output files with no data.
+-   prepareMet now writes dates in AU format to handle Apsim 7.9 which can now read dates in addition to year/day
+
 ### 0.9.1
 
 -   loadMet now allows met files to be streamed. Just pass it the complete url.

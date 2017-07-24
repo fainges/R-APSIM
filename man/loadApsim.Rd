@@ -5,7 +5,8 @@
 \title{Read APSIM .out files.}
 \usage{
 loadApsim(dir = NULL, loadAll = TRUE, filter = "\\\\.out",
-  returnFrame = TRUE, n = 0, fill = FALSE, addConstants = TRUE)
+  returnFrame = TRUE, n = 0, fill = FALSE, addConstants = TRUE,
+  skipEmpty = FALSE)
 }
 \arguments{
 \item{dir}{(optional) The directory to search for .out files. This is not recursive.
@@ -29,6 +30,9 @@ error if the columns don't match across all files.}
 
 \item{addConstants}{Add any constants (such as ApsimVersion, Title or factor 
 levels) found as extra columns. Default is TRUE.}
+
+\item{skipEmpty}{Silently skip empty output files. If false, empty files
+will cause an error. Default is FALSE.}
 }
 \description{
 Reads APSIM .out files.
@@ -51,4 +55,3 @@ relevant to your analysis.
 \dontrun{loadApsim("c:/outputs", returnFrame=FALSE, fill=TRUE) 
   # load everything in the outputs directory, fill any missing columns and return a data table.}
 }
-

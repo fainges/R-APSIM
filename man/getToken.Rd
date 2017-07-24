@@ -32,4 +32,3 @@ data, but it doesn't work on a vector.
 getToken takes a data frame, a column of type 'character', a seperator and a token position to return
 each token in the given position. It then appends the token as a new column.
 }
-
