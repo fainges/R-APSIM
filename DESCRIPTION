@@ -7,6 +7,7 @@ Date: 2017-07-24
 Author: Justin Fainges
 Maintainer: Justin Fainges <Justin.Fainges@csiro.au>
 LazyData: true
+Byte-Compile: yes
 Description: Contains functions designed to facilitate the loading
     and transformation of 'Agricultural Production Systems Simulator'
     output files <https://www.apsim.info>. Input meteorological data
