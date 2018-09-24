@@ -7,7 +7,7 @@
 getToken(x, cname, pos, sep, colName)
 }
 \arguments{
-\item{x}{A data frame}
+\item{x}{A data frame.}
 
 \item{cname}{The name of the column to extract a token from.}
 
@@ -22,13 +22,14 @@ Extract a token from a character vector in a data frame containing a number
 of delimited tokens. Specialised version of str_split that works on vectors.
 }
 \details{
-By default loadApsim will automatically create columns from constants inside
-the output files. However sometimes you might want to extract values from 
-different data such as the file name. This is easy to do if the data is
-a fixed width, but it can be difficult when it's of variable length and
-delimited. str_split() is the most common way to deal with this sort of 
-data, but it doesn't work on a vector.
+By default \code{\link{loadApsim}} will automatically create columns from
+constants inside the output files. However sometimes you might want to
+extract values from different data such as the file name. This is easy to do
+if the data is a fixed width, but it can be difficult when it's of variable
+length and delimited. \code{\link[stringr]{str_split}} is the most common
+way to deal with this sort of data, but it doesn't work on a vector.
 
-getToken takes a data frame, a column of type 'character', a seperator and a token position to return
-each token in the given position. It then appends the token as a new column.
+getToken takes a data frame, a column of type 'character', a seperator and a
+token position to return each token in the given position. It then appends
+the token as a new column.
 }
