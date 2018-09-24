@@ -101,9 +101,9 @@ prepareMet <- function (data, lat=stop("Latitude required."), lon=stop("Longitud
     
     # Check for standard met columns
     reqNames <- c("maxt", "mint", "radn", "rain", "year", "day")
-    print("Required column name check:")
-    print(reqNames)
-    print(reqNames %in% names(data))
+    message("Required column name check:")
+    message(reqNames)
+    message(reqNames %in% names(data))
     if (!all(reqNames %in% names(data))) stop("One or more required column names are missing.")
     
     if(ncol(data) != length(units)) stop("The number of columns in the data did not match the number of units. All data columns must have units. For unitless values use ().")
@@ -267,7 +267,7 @@ insertTavAmp <- function(met){
     data$month <- lubridate::month(as.Date(paste(data$year, data$day,sep="-"), format="%Y-%j"))
     data$meanDayT <- (data$maxt + data$mint) / 2
     mmt <- plyr::ddply(data, "month", function(df) mean(df$meanDayT))
-    if (nrow(mmt) != 12) print("WARNING: At least 12 months of data is required to generate tav and amp. Values may be inaccurate.")
+    if (nrow(mmt) != 12) warning("At least 12 months of data is required to generate tav and amp. Values may be inaccurate.")
     met@tav <- max(mmt$V1) - min(mmt$V1)
     met@amp <- mean(mmt$V1)
     return(met)
