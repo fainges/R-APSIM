@@ -31,8 +31,8 @@ Errors checked include:
   \item Evaporation that is too high or low.
   \item Radiation that is too high or low.
   }
-  
-  Note that issues found may not stop APSIM from running
+
+Note that issues found may not stop APSIM from running
   but might indicate an issue with the weather data.
   Warnings may not be applicable for very hot or cold climates.
 

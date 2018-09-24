@@ -13,9 +13,9 @@ insertTavAmp(met)
 A met file object to which tav and amp has been added.
 }
 \description{
-Amp is obtained by averaging the mean daily temperature of each month over 
-the entire data period resulting in twelve mean temperatures, and then 
-subtracting the minimum of these values from the maximum. Tav is obtained by 
+Amp is obtained by averaging the mean daily temperature of each month over
+the entire data period resulting in twelve mean temperatures, and then
+subtracting the minimum of these values from the maximum. Tav is obtained by
 averaging the twelve mean monthly temperatures.
 }
 \details{

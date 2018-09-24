@@ -22,3 +22,10 @@ in \code{\link{prepareMet}}, it is not strictly required by APSIM and thus is
 optional here. However, it is best practise to include it so it will remain
 mandatory when building a met file via \code{\link{prepareMet}}.
 }
+\examples{
+data(Kingsthorpe)
+newNames <-c("Date", "maxt", "mint", "rain", "evaporation", "radn", "vp", "Wind", "RH", "SVP")
+units <- c("()", "(oC)", "(oC)", "(mm)", "(mm)", "(MJ/m^2/day)", "()", "()", "()", "()")
+KingsMet <- prepareMet(kingsData, -27.48, 151.81, newNames = newNames, units = units)
+writeMetFile(file.path(tempdir(), "KingsMet.met"), KingsMet)
+}
