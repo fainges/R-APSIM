@@ -23,4 +23,5 @@ Imports:
     utils,
     RSQLite
 URL: https://www.apsim.info
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+RoxygenNote: 6.1.0
